@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "hazels-various-wings",
+	"version": "${version}",
+	"name": "Hazel's Various Wings",
+	"description": "Adds various Terraria inspired wings for different stages of the game.",
+	"authors": [
+		"Hazel Clover"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CCBY4.0",
+	"icon": "assets/hazels-various-wings/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"hazelclover.hazelsvariouswings.HazelsVariousWings"
+		],
+		"client": [
+			"hazelclover.hazelsvariouswings.HazelsVariousWingsClient"
+		],
+		"fabric-datagen": [
+			"hazelclover.hazelsvariouswings.HazelsVariousWingsDataGenerator"
+		]
+	},
+	"mixins": [
+		"hazels-various-wings.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.5",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
