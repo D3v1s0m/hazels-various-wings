@@ -15,6 +15,7 @@ public class ModItemGroup {
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.hazels-various-wings-item-group"))
                     .icon(() -> new ItemStack(ModItems.FLIMSY_WINGS)).entries((displayContext, entries) -> {
                         entries.add(ModItems.FLIMSY_WINGS);
+                        entries.add(ModItems.FLEDGLING_WINGS);
 
                     }).build());
 
