@@ -13,17 +13,11 @@ import net.minecraft.util.Identifier;
 public class ModItems {
     public static final Item FLIMSY_WINGS = registerItem("flimsy_wings", new Item(new Item.Settings()));
 
-    private static void addItemsToToolsTabItemGroup(FabricItemGroupEntries entries) {
-        entries.add(FLIMSY_WINGS);
-    }
-
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(HazelsVariousWings.MOD_ID, name), item);
     }
 
     public static void registerModItems() {
         HazelsVariousWings.LOGGER.info("Registering Mod Items for " + HazelsVariousWings.MOD_ID);
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ModItems::addItemsToToolsTabItemGroup);
     }
 }
