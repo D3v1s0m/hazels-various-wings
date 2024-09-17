@@ -1,5 +1,6 @@
 package hazelclover.hazelsvariouswings;
 
+import hazelclover.hazelsvariouswings.fuctionality.WingsHandler;
 import hazelclover.hazelsvariouswings.item.ModItemGroup;
 import hazelclover.hazelsvariouswings.item.ModItems;
 import net.fabricmc.api.ModInitializer;
@@ -15,5 +16,6 @@ public class HazelsVariousWings implements ModInitializer {
 	public void onInitialize() {
 		ModItemGroup.registerItemGroups();
 		ModItems.registerModItems();
+		WingsHandler.register();
 	}
 }

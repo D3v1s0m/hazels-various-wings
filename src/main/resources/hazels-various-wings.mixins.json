@@ -3,7 +3,7 @@
 	"package": "hazelclover.hazelsvariouswings.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"FallDamagePreventerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
