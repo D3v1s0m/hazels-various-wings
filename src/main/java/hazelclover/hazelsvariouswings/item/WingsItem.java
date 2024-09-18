@@ -49,9 +49,9 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
 
         // Shift matrices position and animate
         float rot = (float) (0.4f*sin(0.08f*animationProgress)+0.8f);
-        float out = scale*0.6f;
+        float out = 0.48f;
         matrices.scale(scale, scale, scale);
-        matrices.translate(cos(rot)*out, out*-0.2f, 0.19f+sin(rot)*out); // X right-left Y down-up Z forwards-backwards
+        matrices.translate(cos(rot)*out, out*-0.2f, (0.28f/scale)+sin(rot)*out); // X right-left Y down-up Z forwards-backwards
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) PI)); // flip right way up
         matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (rot+PI)));
 
