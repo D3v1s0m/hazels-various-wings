@@ -2,5 +2,8 @@
   "item.hazels-various-wings.flimsy_wings": "Flimsy Wings",
   "item.hazels-various-wings.fledgling_wings": "Fledgling Wings",
 
-  "itemgroup.hazels-various-wings-item-group": "Hazel's Various Wings!"
+  "itemgroup.hazels-various-wings-item-group": "Hazel's Various Wings!",
+
+  "tooltip.hazels-various-wings.wingsitem.generic": "Allows you to fly",
+  "tooltip.hazels-various-wings.wingsitem.doesGlide": "Tap the jump button to glide"
 }
