@@ -2,6 +2,7 @@ package hazelclover.hazelsvariouswings.fuctionality;
 
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
+import hazelclover.hazelsvariouswings.item.WingsFlightState;
 import hazelclover.hazelsvariouswings.item.WingsItem;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -35,6 +36,9 @@ public class WingsHandler {
         wings.setFallDistOnServerToZero = false;
 
         final boolean isInWater = player.isTouchingWater();
+        final boolean isInvOpen = (client.currentScreen instanceof InventoryScreen);
+
+        wings.flightState = (player.groundCollision ? WingsFlightState.GROUNDED : WingsFlightState.FALL);
 
         if (player.groundCollision || isInWater) {
             if (player.isFallFlying())
@@ -43,14 +47,15 @@ public class WingsHandler {
             wings.currentHoverDuration = wings.hoverDuration;
         }
         if (player.isFallFlying()) {
-            wings.damageItemTimer -= 0.026f;
+            wings.flightState = WingsFlightState.GLIDE;
+            wings.damageItemTimer -= 0.025f;
             return;
         }
-        if (client.currentScreen instanceof InventoryScreen) {return;}
-        if (isSpacePressed() && (wings.inWaterFunctional || !isInWater)) {
-            onSpaceHeld(player, wings);
-            wings.flightHeldTicks++;
-        } else {
+        if (((isInvOpen && wings.flightHeldTicks > 0) || isSpacePressed()) && (wings.inWaterFunctional || !isInWater)) {
+            onSpaceHeld(player, wings, isInvOpen);
+            if (!isInvOpen)
+                wings.flightHeldTicks++;
+        } else if (!isInvOpen) {
             if (wings.doesGlide && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 3) {
                 player.startFallFlying(); // Trigger Elytra flight
                 player.fallDistance = 0;
@@ -78,18 +83,22 @@ public class WingsHandler {
         return trinketComponent.getInventory().get(group).get(slot).getStack(0); // 0 is the slot index
     }
 
-    private static void onSpaceHeld(ClientPlayerEntity player, WingsItem wings) {
+    private static void onSpaceHeld(ClientPlayerEntity player, WingsItem wings, boolean isInvOpen) {
         player.fallDistance = 0f;
         wings.setFallDistOnServerToZero = true;
         Vec3d vel = player.getVelocity();
-        if (wings.currentFlyDuration > 0) {
+        if (wings.currentFlyDuration > 0 && !isInvOpen) {
             player.setVelocity(vel.x, Math.max(Math.min(vel.y+wings.flyPower*0.4f, wings.flyPower), vel.y), vel.z);
             wings.currentFlyDuration -= 0.05f; // 0.05 is so that it ends up being in seconds (20 ticks in a second)
-            wings.damageItemTimer -= 0.05f;
+            wings.damageItemTimer -= 0.04f;
+
+            wings.flightState = WingsFlightState.UP;
         } else if (wings.currentHoverDuration > 0) {
             player.setVelocity(vel.x, Math.max(Math.min(vel.y+(0.3f-wings.hoverPower), -wings.hoverPower), vel.y), vel.z);
             wings.currentHoverDuration -= 0.05f;
-            wings.damageItemTimer -= 0.02f;
+            wings.damageItemTimer -= 0.015f;
+
+            wings.flightState = WingsFlightState.HOVER;
         }
     }
 }
