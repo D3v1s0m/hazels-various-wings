@@ -59,6 +59,7 @@ public class WingsHandler {
             if (wings.doesGlide && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 3) {
                 player.startFallFlying(); // Trigger Elytra flight
                 player.fallDistance = 0;
+                wings.pastGlideSpeed = player.speed;
             }
             wings.flightHeldTicks = 0;
         }

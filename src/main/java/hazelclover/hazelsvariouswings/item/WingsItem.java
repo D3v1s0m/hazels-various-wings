@@ -4,6 +4,7 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
+import hazelclover.hazelsvariouswings.HazelsVariousWings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -46,6 +47,8 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
     public int flightHeldTicks = 0;
     public float damageItemTimer = 1;
     private boolean tookDurabilityDamage = false;
+    public float pastGlideSpeed = 0;
+    private float animGlideSpeed = 0;
 
     public WingsFlightState flightState = WingsFlightState.GROUNDED;
 
@@ -117,16 +120,71 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         float sYawBaseAngle = 0;
         float sYawFlapSpeed = 0;
         float sYawFlapAngle = 0;
-        float sPitchAngle = 0;
+        float sPitchBaseAngle = 0;
+        float sPitchFlapSpeed = 0;
+        float sPitchFlapAngle = 0;
+        float sRotBaseAngle = 0;
+        float sRotFlapSpeed = 0;
+        float sRotFlapAngle = 0;
         switch (flightState) {
             case GROUNDED -> {
                 sYawBaseAngle = 0.8f;
                 sYawFlapSpeed = 0.08f;
                 sYawFlapAngle = 0.4f;
-                sPitchAngle = 0.9f;
+                sPitchBaseAngle = 0.0f;
+                sPitchFlapSpeed = 0.0f;
+                sPitchFlapAngle = 0.0f;
+                sRotBaseAngle = 0.0f;
+                sRotFlapSpeed = 0.0f;
+                sRotFlapAngle = 0.0f;
             }
             case FALL -> {
+                sYawBaseAngle = 0.7f;
+                sYawFlapSpeed = 0.1f;
+                sYawFlapAngle = 0.2f;
+                sPitchBaseAngle = -0.2f;
+                sPitchFlapSpeed = 0.0f;
+                sPitchFlapAngle = 0.0f;
+                sRotBaseAngle = 0.0f;
+                sRotFlapSpeed = 0.0f;
+                sRotFlapAngle = 0.0f;
+            }
+            case UP -> {
+                sYawBaseAngle = 0.2f;
+                sYawFlapSpeed = 0.4f;
+                sYawFlapAngle = 0.4f;
+                sPitchBaseAngle = 0.3f;
+                sPitchFlapSpeed = 0.4f;
+                sPitchFlapAngle = -0.5f;
+                sRotBaseAngle = 0.5f;
+                sRotFlapSpeed = 0.0f;
+                sRotFlapAngle = 0.0f;
+            }
+            case HOVER -> {
+                sYawBaseAngle = 0.7f;
+                sYawFlapSpeed = 0.0f;
+                sYawFlapAngle = 0.0f;
+                sPitchBaseAngle = 0.0f;
+                sPitchFlapSpeed = 0.0f;
+                sPitchFlapAngle = 0.0f;
+                sRotBaseAngle = 0.9f;
+                sRotFlapSpeed = 0.0f;
+                sRotFlapAngle = 0.0f;
+            }
+            case GLIDE -> {
+                if (entity.speed > pastGlideSpeed)
+                    animGlideSpeed = (entity.speed - pastGlideSpeed)*1.4f;
+                pastGlideSpeed = entity.speed;
 
+                sYawBaseAngle = 0.8f;
+                sYawFlapSpeed = 0.2f;
+                sYawFlapAngle = 0.2f;
+                sPitchBaseAngle = (animGlideSpeed*1.2f);
+                sPitchFlapSpeed = 0.0f;
+                sPitchFlapAngle = 0.0f;
+                sRotBaseAngle = -0.2f - (animGlideSpeed*0.9f);
+                sRotFlapSpeed = 0.2f * (0.8f-animGlideSpeed);
+                sRotFlapAngle = -0.1f * (0.8f-animGlideSpeed);
             }
         }
 
@@ -134,31 +192,32 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         // Push matrix first
         matrices.push();
         // Shift matrices position and animate
-        float rot = (float) (sYawFlapAngle * sin(sYawFlapSpeed * animationProgress) + sYawBaseAngle);
-        rot = animationProgress*0.05f;
+        float yaw = (float) (sYawFlapAngle * sin(sYawFlapSpeed * animationProgress) + sYawBaseAngle);
+        float pitch = (float) (sPitchFlapAngle * sin(sPitchFlapSpeed * animationProgress) + sPitchBaseAngle);
+        float rot = (float) (sRotFlapAngle * sin(sRotFlapSpeed * animationProgress) + sRotBaseAngle);
         matrices.scale(scale, scale, scale);
-//        matrices.translate(cos(rot) * 0.48f + (0.16f / scale), (-0.2f / scale), (0.28f / scale) + sin(rot) * 0.48f); // X right-left Y up-down Z forwards-backwards
-//        matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) (PI))); // flip right way up
-//        matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (rot + PI)));
+        matrices.translate(-0.5+(0.16f/scale), -0.18f/scale, 0.3f/scale); // X right-left Y up-down Z forwards-backwards
+        matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) (PI + rot))); // flip right way up
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotation(-pitch), 0.5f, 0, 0);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (yaw + PI)), 0.5f, 0, 0);
         // Render the item
         itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, false, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, itemModel);
         // Pop matrix
         matrices.pop();
 
-//        // Render right wing
-//        // Push matrix first
-//        matrices.push();
-//        // Shift matrices position and animate
-//        rot = (float) (PI - rot);
-//        matrices.scale(scale, scale, scale);
-//        matrices.translate(cos(rot) * 0.48f - (0.16f / scale), (-0.2f / scale), (0.28f / scale) + sin(rot) * 0.48f); // X right-left Y up-down Z forwards-backwards
-//        matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) (PI))); // flip right way up
-//        matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (rot + PI)));
-//        //matrices.multiply(RotationAxis.POSITIVE_Z.rotation((0.7f)));
-//
-//        // Render the item
-//        itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, false, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, itemModel);
-//        // Pop matrix
-//        matrices.pop();
+        // Render right wing
+        // Push matrix first
+        matrices.push();
+        // Shift matrices position and animate
+        yaw = (float) (PI - yaw);
+        matrices.scale(scale, scale, scale);
+        matrices.translate(-0.5-(0.16f/scale), -0.18f/scale, 0.3f/scale); // X right-left Y up-down Z forwards-backwards
+        matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) (PI + rot))); // flip right way up
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotation(pitch), 0.5f, 0, 0);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (yaw + PI)), 0.5f, 0, 0);
+        // Render the item
+        itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, false, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, itemModel);
+        // Pop matrix
+        matrices.pop();
     }
 }

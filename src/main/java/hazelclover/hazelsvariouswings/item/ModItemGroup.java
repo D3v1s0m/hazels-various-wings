@@ -16,7 +16,19 @@ public class ModItemGroup {
                     .icon(() -> new ItemStack(ModItems.FLIMSY_WINGS)).entries((displayContext, entries) -> {
                         entries.add(ModItems.FLIMSY_WINGS);
                         entries.add(ModItems.FLEDGLING_WINGS);
-
+                        entries.add(ModItems.PHANTOM_WINGS);
+                        entries.add(ModItems.LEAF_WINGS);
+                        entries.add(ModItems.CORAL_WINGS);
+                        entries.add(ModItems.BEE_WINGS);
+                        entries.add(ModItems.DEMON_WINGS);
+                        entries.add(ModItems.BLAZE_WINGS);
+                        entries.add(ModItems.GEM_WINGS);
+                        entries.add(ModItems.VOID_WINGS);
+                        entries.add(ModItems.ELYTRA_WINGS);
+                        entries.add(ModItems.PRISTINE_WINGS);
+                        entries.add(ModItems.NEBULOUS_WINGS);
+                        entries.add(ModItems.MECHANICAL_WINGS);
+                        entries.add(ModItems.BRASS_WINGS);
                     }).build());
 
     public static void registerItemGroups() {
