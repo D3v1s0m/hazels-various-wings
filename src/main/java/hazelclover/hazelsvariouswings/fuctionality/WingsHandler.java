@@ -17,6 +17,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class WingsHandler {
     public static void register() {
+        HazelsVariousWings.LOGGER.info("Registering Wings Logic Handler for " + HazelsVariousWings.MOD_ID);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
                 WingsItem wings = getEquippedWings(client.player);

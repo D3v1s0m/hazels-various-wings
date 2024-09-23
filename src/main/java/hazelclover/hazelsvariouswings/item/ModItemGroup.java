@@ -20,6 +20,7 @@ public class ModItemGroup {
                         entries.add(ModItems.LEAF_WINGS);
                         entries.add(ModItems.CORAL_WINGS);
                         entries.add(ModItems.BEE_WINGS);
+                        entries.add(ModItems.MOTH_WINGS);
                         entries.add(ModItems.DEMON_WINGS);
                         entries.add(ModItems.BLAZE_WINGS);
                         entries.add(ModItems.GEM_WINGS);

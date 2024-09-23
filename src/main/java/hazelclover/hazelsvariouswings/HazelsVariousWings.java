@@ -3,6 +3,8 @@ package hazelclover.hazelsvariouswings;
 import hazelclover.hazelsvariouswings.fuctionality.WingsHandler;
 import hazelclover.hazelsvariouswings.item.ModItemGroup;
 import hazelclover.hazelsvariouswings.item.ModItems;
+import hazelclover.hazelsvariouswings.loot.LootInjector;
+import hazelclover.hazelsvariouswings.loot.TraderTrades;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -17,5 +19,7 @@ public class HazelsVariousWings implements ModInitializer {
 		ModItemGroup.registerItemGroups();
 		ModItems.registerModItems();
 		WingsHandler.register();
+		TraderTrades.register();
+		LootInjector.register();
 	}
 }

@@ -1,0 +1,19 @@
+{
+  "criteria": {
+    "has_custom_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "hazels-various-wings:elytra_wings"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "hazels-various-wings:nebulous_wings"
+    ]
+  }
+}

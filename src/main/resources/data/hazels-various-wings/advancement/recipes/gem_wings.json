@@ -1,0 +1,19 @@
+{
+  "criteria": {
+    "has_custom_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:diamond"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "hazels-various-wings:gem_wings"
+    ]
+  }
+}
