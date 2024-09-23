@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "#/#",
+    "#@#",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:honeycomb"
+    },
+    "/": {
+      "item": "minecraft:copper_ingot"
+    },
+    "@": {
+      "item": "hazels-various-wings:fledgling_wings"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "hazels-various-wings:bee_wings"
+  }
+}

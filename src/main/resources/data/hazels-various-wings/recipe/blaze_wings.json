@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "# #",
+    "#@#",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:blaze_rod"
+    },
+    "@": {
+      "item": "hazels-various-wings:demon_wings"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "hazels-various-wings:blaze_wings"
+  }
+}

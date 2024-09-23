@@ -2,6 +2,19 @@
   "replace": false,
   "values": [
     "hazels-various-wings:flimsy_wings",
-    "hazels-various-wings:fledgling_wings"
+    "hazels-various-wings:fledgling_wings",
+    "hazels-various-wings:phantom_wings",
+    "hazels-various-wings:leaf_wings",
+    "hazels-various-wings:coral_wings",
+    "hazels-various-wings:bee_wings",
+    "hazels-various-wings:demon_wings",
+    "hazels-various-wings:blaze_wings",
+    "hazels-various-wings:gem_wings",
+    "hazels-various-wings:void_wings",
+    "hazels-various-wings:elytra_wings",
+    "hazels-various-wings:pristine_wings",
+    "hazels-various-wings:nebulous_wings",
+    "hazels-various-wings:mechanical_wings",
+    "hazels-various-wings:brass_wings"
   ]
 }

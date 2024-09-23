@@ -32,7 +32,7 @@ import static java.lang.Math.*;
 
 public class WingsItem extends TrinketItem implements TrinketRenderer {
     private final float scale;
-    public boolean setFallDistOnServerToZero = false;
+    public float setFallDistOnServer = -1;
 
     public final float flyDuration;
     public final float flyPower;
@@ -90,7 +90,10 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         super.tick(stack, slot, entity);
         if (entity.getWorld().isClient()) {return;}
 
-        if (setFallDistOnServerToZero) {entity.fallDistance = 0;}
+        if (setFallDistOnServer >= 0) {
+            entity.fallDistance = setFallDistOnServer;
+            setFallDistOnServer = -1;
+        }
 
         if (damageItemTimer > 0) {return;}
         damageItemTimer++;
@@ -151,10 +154,10 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
             }
             case UP -> {
                 sYawBaseAngle = 0.2f;
-                sYawFlapSpeed = 0.4f;
+                sYawFlapSpeed = 0.6f;
                 sYawFlapAngle = 0.4f;
                 sPitchBaseAngle = 0.3f;
-                sPitchFlapSpeed = 0.4f;
+                sPitchFlapSpeed = 0.6f;
                 sPitchFlapAngle = -0.5f;
                 sRotBaseAngle = 0.5f;
                 sRotFlapSpeed = 0.0f;
@@ -196,7 +199,7 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         float pitch = (float) (sPitchFlapAngle * sin(sPitchFlapSpeed * animationProgress) + sPitchBaseAngle);
         float rot = (float) (sRotFlapAngle * sin(sRotFlapSpeed * animationProgress) + sRotBaseAngle);
         matrices.scale(scale, scale, scale);
-        matrices.translate(-0.5+(0.16f/scale), -0.18f/scale, 0.3f/scale); // X right-left Y up-down Z forwards-backwards
+        matrices.translate(-0.5+(0.14f/scale), -0.18f/scale, 0.3f/scale); // X right-left Y up-down Z forwards-backwards
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) (PI + rot))); // flip right way up
         matrices.multiply(RotationAxis.POSITIVE_Z.rotation(-pitch), 0.5f, 0, 0);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (yaw + PI)), 0.5f, 0, 0);
@@ -211,7 +214,7 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         // Shift matrices position and animate
         yaw = (float) (PI - yaw);
         matrices.scale(scale, scale, scale);
-        matrices.translate(-0.5-(0.16f/scale), -0.18f/scale, 0.3f/scale); // X right-left Y up-down Z forwards-backwards
+        matrices.translate(-0.5-(0.14f/scale), -0.18f/scale, 0.3f/scale); // X right-left Y up-down Z forwards-backwards
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) (PI + rot))); // flip right way up
         matrices.multiply(RotationAxis.POSITIVE_Z.rotation(pitch), 0.5f, 0, 0);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (yaw + PI)), 0.5f, 0, 0);

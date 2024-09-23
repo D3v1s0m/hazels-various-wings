@@ -18,13 +18,13 @@ public abstract class FallDamagePreventerMixin {
 	public void handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
 		LivingEntity entity = (LivingEntity) (Object) this;
 		if (entity instanceof PlayerEntity player) {
-			// Replace this with your check for space bar being held and WingsItem equipped
-			WingsItem wings = WingsHandler.getEquippedWings(player);
-			if (wings == null) {return;}
-			if (WingsHandler.isSpacePressed()) {
-				// Cancel fall damage
-				cir.setReturnValue(false);
-			}
+			HazelsVariousWings.LOGGER.info("hit " + player.fallDistance);
+//			WingsItem wings = WingsHandler.getEquippedWings(player);
+//			if (wings == null) {return;}
+//			if (WingsHandler.isSpacePressed()) {
+//				// Cancel fall damage
+//				cir.setReturnValue(false);
+//			}
 		}
 	}
 }

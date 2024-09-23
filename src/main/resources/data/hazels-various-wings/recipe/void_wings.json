@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "/ /",
+    "#@#",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:sculk"
+    },
+    "/": {
+      "item": "minecraft:echo_shard"
+    },
+    "@": {
+      "item": "hazels-various-wings:blaze_wings"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "hazels-various-wings:void_wings"
+  }
+}

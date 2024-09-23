@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "D D",
+    "EDE",
+    "A A"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "hazels-various-wings:gem_wings"
+  }
+}

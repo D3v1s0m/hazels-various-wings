@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "# #",
+    "@/$",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:purple_wool"
+    },
+    "/": {
+      "item": "minecraft:end_rod"
+    },
+    "@": {
+      "item": "hazels-various-wings:elytra_wings"
+    },
+    "$": {
+      "item": "hazels-various-wings:void_wings"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "hazels-various-wings:nebulous_wings"
+  }
+}
