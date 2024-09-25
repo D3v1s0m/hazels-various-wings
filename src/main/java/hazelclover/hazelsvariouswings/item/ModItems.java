@@ -2,12 +2,10 @@ package hazelclover.hazelsvariouswings.item;
 
 import hazelclover.hazelsvariouswings.HazelsVariousWings;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-
-import java.lang.reflect.Field;
+import net.minecraft.util.Rarity;
 
 public class ModItems {
     public static final Item FLIMSY_WINGS = registerItem("flimsy_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(54), 0.7f, 0.3f, 0.2f, 0f, 0f, false, false));
@@ -18,14 +16,14 @@ public class ModItems {
     public static final Item BEE_WINGS = registerItem("bee_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(235), 0.8f, 0.36f, 0.22f, 1.8f, 0.18f, false, false));
     public static final Item MOTH_WINGS = registerItem("moth_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(324), 1f, 0.66f, 0.24f, 0.8f, 0.16f, false, false));
     public static final Item DEMON_WINGS = registerItem("demon_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(145), 1.1f, 0.35f, 0.22f, 1.4f, 0.2f, false, false));
-    public static final Item BLAZE_WINGS = registerItem("blaze_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(478), 1.3f, 0.5f, 0.32f, 2.2f, 0.17f, false, false));
+    public static final Item BLAZE_WINGS = registerItem("blaze_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(478).rarity(Rarity.UNCOMMON), 1.3f, 0.5f, 0.32f, 2.2f, 0.17f, false, false));
     public static final Item GEM_WINGS = registerItem("gem_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(611), 1.2f, 0.4f, 0.28f, 0.7f, 0.2f, false, false));
-    public static final Item VOID_WINGS = registerItem("void_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(1100), 1.3f, 0.72f, 0.34f, 1.8f, 0.14f, false, false));
-    public static final Item ELYTRA_WINGS = registerItem("elytra_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(1620), 1.1f, 0f, 0f, 0f, 0f, false, true));
-    public static final Item PRISTINE_WINGS = registerItem("pristine_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2120).fireproof(), 1.4f, 1.4f, 0.4f, 4f, 0.16f, true, true));
-    public static final Item NEBULOUS_WINGS = registerItem("nebulous_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2034), 1.4f, 1.7f, 0.5f, 9999f, 0.1f, true, false));
+    public static final Item VOID_WINGS = registerItem("void_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(1100).rarity(Rarity.UNCOMMON), 1.3f, 0.72f, 0.34f, 1.8f, 0.14f, false, false));
+    public static final Item ELYTRA_WINGS = registerItem("elytra_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(1620).rarity(Rarity.UNCOMMON), 1.1f, 0f, 0f, 0f, 0f, false, true));
+    public static final Item PRISTINE_WINGS = registerItem("pristine_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2120).fireproof().rarity(Rarity.RARE), 1.4f, 1.4f, 0.4f, 4f, 0.16f, true, true));
+    public static final Item NEBULOUS_WINGS = registerItem("nebulous_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2034).rarity(Rarity.RARE), 1.4f, 1.7f, 0.5f, 9999f, 0.1f, true, false));
     public static final Item MECHANICAL_WINGS = registerItem("mechanical_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(220), 1.1f, 0.5f, 0.26f, 1.2f, 0.17f, false, false));
-    public static final Item BRASS_WINGS = registerItem("brass_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2300), 1.4f, 9f, 0.3f, 9999f, 0.2f, true, false));
+    public static final Item BRASS_WINGS = registerItem("brass_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2300).rarity(Rarity.RARE), 1.4f, 9f, 0.3f, 9999f, 0.2f, true, false));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(HazelsVariousWings.MOD_ID, name), item);
