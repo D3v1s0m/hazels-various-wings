@@ -5,6 +5,7 @@ import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import hazelclover.hazelsvariouswings.HazelsVariousWings;
+import net.fabricmc.fabric.api.entity.event.v1.FabricElytraItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -25,6 +26,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.world.event.GameEvent;
 
 import java.util.List;
 
@@ -47,6 +49,7 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
     public int flightHeldTicks = 0;
     public float damageItemTimer = 1;
     private boolean tookDurabilityDamage = false;
+    public boolean forceGlideOnServer = false;
     public float pastGlideSpeed = 0;
     private float animGlideSpeed = 0;
 
@@ -66,12 +69,14 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         this.doesGlide = doesGlide;
     }
 
+
     // To make you stop gliding if you currently are
     @Override
     public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (entity instanceof PlayerEntity player && entity.isFallFlying() && !tookDurabilityDamage)
         {
             player.stopFallFlying();
+            forceGlideOnServer = false;
         }
         tookDurabilityDamage = false;
     }
@@ -81,6 +86,7 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         if (entity instanceof PlayerEntity player && entity.isFallFlying())
         {
             player.stopFallFlying();
+            forceGlideOnServer = false;
         }
     }
 
@@ -93,6 +99,12 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         if (setFallDistOnServer >= 0) {
             entity.fallDistance = setFallDistOnServer;
             setFallDistOnServer = -1;
+        }
+
+        if (forceGlideOnServer && entity instanceof ServerPlayerEntity player) {
+            player.startFallFlying();
+            forceGlideOnServer = false;
+            player.fallDistance = 0;
         }
 
         if (damageItemTimer > 0) {return;}
@@ -176,18 +188,18 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
             }
             case GLIDE -> {
                 if (entity.speed > pastGlideSpeed)
-                    animGlideSpeed = (entity.speed - pastGlideSpeed)*1.4f;
+                    animGlideSpeed = Math.min(1, entity.speed - pastGlideSpeed);
                 pastGlideSpeed = entity.speed;
 
                 sYawBaseAngle = 0.8f;
                 sYawFlapSpeed = 0.2f;
                 sYawFlapAngle = 0.2f;
-                sPitchBaseAngle = (animGlideSpeed*1.2f);
+                sPitchBaseAngle = (animGlideSpeed*0.9f);
                 sPitchFlapSpeed = 0.0f;
                 sPitchFlapAngle = 0.0f;
-                sRotBaseAngle = -0.2f - (animGlideSpeed*0.9f);
-                sRotFlapSpeed = 0.2f * (0.8f-animGlideSpeed);
-                sRotFlapAngle = -0.1f * (0.8f-animGlideSpeed);
+                sRotBaseAngle = animGlideSpeed*-0.7f;
+                sRotFlapSpeed = 0.2f * (1-animGlideSpeed);
+                sRotFlapAngle = -0.1f * (1-animGlideSpeed);
             }
         }
 

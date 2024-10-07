@@ -1,6 +1,8 @@
 package hazelclover.hazelsvariouswings.item;
 
 import hazelclover.hazelsvariouswings.HazelsVariousWings;
+import net.minecraft.component.ComponentType;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -20,8 +22,8 @@ public class ModItems {
     public static final Item GEM_WINGS = registerItem("gem_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(611), 1.2f, 0.4f, 0.28f, 0.7f, 0.2f, false, false));
     public static final Item VOID_WINGS = registerItem("void_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(1100).rarity(Rarity.UNCOMMON), 1.3f, 0.72f, 0.34f, 1.8f, 0.14f, false, false));
     public static final Item ELYTRA_WINGS = registerItem("elytra_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(1620).rarity(Rarity.UNCOMMON), 1.1f, 0f, 0f, 0f, 0f, false, true));
-    public static final Item PRISTINE_WINGS = registerItem("pristine_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2120).fireproof().rarity(Rarity.RARE), 1.4f, 1.4f, 0.4f, 4f, 0.16f, true, true));
-    public static final Item NEBULOUS_WINGS = registerItem("nebulous_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2034).rarity(Rarity.RARE), 1.4f, 1.7f, 0.5f, 9999f, 0.1f, true, false));
+    public static final Item PRISTINE_WINGS = registerItem("pristine_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2120).fireproof().rarity(Rarity.RARE), 1.4f, 1.44f, 0.42f, 4f, 0.16f, true, true));
+    public static final Item NEBULOUS_WINGS = registerItem("nebulous_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2034).rarity(Rarity.RARE), 1.4f, 1.86f, 0.52f, 9999f, 0.1f, true, false));
     public static final Item MECHANICAL_WINGS = registerItem("mechanical_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(220), 1.1f, 0.5f, 0.26f, 1.2f, 0.17f, false, false));
     public static final Item BRASS_WINGS = registerItem("brass_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2300).rarity(Rarity.RARE), 1.4f, 9f, 0.3f, 9999f, 0.2f, true, false));
 
@@ -31,5 +33,6 @@ public class ModItems {
 
     public static void registerModItems() {
         HazelsVariousWings.LOGGER.info("Registering Mod Items for " + HazelsVariousWings.MOD_ID);
+        //HazelsVariousWings.LOGGER.info("a " + );
     }
 }

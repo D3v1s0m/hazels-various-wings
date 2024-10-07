@@ -35,7 +35,7 @@ public class WingsHandler {
 
         if (player.groundCollision || isInWater) {
             if (player.isFallFlying())
-            {player.stopFallFlying();}
+            {player.stopFallFlying(); wings.forceGlideOnServer = false;}
             wings.currentFlyDuration = wings.flyDuration;
             wings.currentHoverDuration = wings.hoverDuration;
         }
@@ -49,8 +49,8 @@ public class WingsHandler {
             if (!isInvOpen)
                 wings.flightHeldTicks++;
         } else if (!isInvOpen) {
-            if (wings.doesGlide && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 4) {
-                player.startFallFlying(); // Trigger Elytra flight
+            if (wings.doesGlide && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 4 && !isInWater) {
+                wings.forceGlideOnServer = true;
                 player.fallDistance = 0;
                 wings.pastGlideSpeed = player.speed;
             }
