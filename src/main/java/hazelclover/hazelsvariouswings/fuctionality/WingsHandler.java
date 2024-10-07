@@ -35,7 +35,7 @@ public class WingsHandler {
 
         if (player.groundCollision || isInWater) {
             if (player.isFallFlying())
-            {player.stopFallFlying(); wings.forceGlideOnServer = false;}
+            {player.stopFallFlying(); wings.startGlideOnServer = false;}
             wings.currentFlyDuration = wings.flyDuration;
             wings.currentHoverDuration = wings.hoverDuration;
         }
@@ -50,8 +50,7 @@ public class WingsHandler {
                 wings.flightHeldTicks++;
         } else if (!isInvOpen) {
             if (wings.doesGlide && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 4 && !isInWater) {
-                wings.forceGlideOnServer = true;
-                player.fallDistance = 0;
+                wings.startGlideOnServer = true;
                 wings.pastGlideSpeed = player.speed;
             }
             wings.flightHeldTicks = 0;
