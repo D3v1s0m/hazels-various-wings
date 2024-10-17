@@ -28,6 +28,8 @@ public class ModItemGroup {
                         entries.add(ModItems.ELYTRA_WINGS);
                         entries.add(ModItems.PRISTINE_WINGS);
                         entries.add(ModItems.NEBULOUS_WINGS);
+                        entries.add(ModItems.ASLERIX_WINGS);
+                        entries.add(ModItems.HAZEL_WINGS);
                         entries.add(ModItems.MECHANICAL_WINGS);
                         entries.add(ModItems.BRASS_WINGS);
                     }).build());

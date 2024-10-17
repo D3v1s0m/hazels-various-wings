@@ -1,8 +1,6 @@
 package hazelclover.hazelsvariouswings.item;
 
 import hazelclover.hazelsvariouswings.HazelsVariousWings;
-import net.minecraft.component.ComponentType;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -24,6 +22,10 @@ public class ModItems {
     public static final Item ELYTRA_WINGS = registerItem("elytra_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(1620).rarity(Rarity.UNCOMMON), 1.1f, 0f, 0f, 0f, 0f, false, true));
     public static final Item PRISTINE_WINGS = registerItem("pristine_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2120).fireproof().rarity(Rarity.RARE), 1.5f, 1.4f, 0.41f, 4f, 0.16f, true, true));
     public static final Item NEBULOUS_WINGS = registerItem("nebulous_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2034).rarity(Rarity.RARE), 1.65f, 1.84f, 0.502f, 9999f, 0.1f, true, false));
+
+    public static final Item ASLERIX_WINGS = registerItem("aslerix_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2170).fireproof().rarity(Rarity.RARE), 1.6f, 2.1f, 0.3f, 9999f, 0.11f, true, true));
+    public static final Item HAZEL_WINGS = registerItem("hazel_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2140).fireproof().rarity(Rarity.RARE), 1.6f, 1.02f, 0.47f, 2f, 0.17f, true, true));
+
     public static final Item MECHANICAL_WINGS = registerItem("mechanical_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(220), 1.1f, 0.5f, 0.26f, 1.2f, 0.17f, false, false));
     public static final Item BRASS_WINGS = registerItem("brass_wings", new WingsItem(new WingsItem.Settings().maxCount(1).maxDamage(2300).rarity(Rarity.RARE), 1.55f, 9f, 0.3f, 9999f, 0.2f, true, false));
 

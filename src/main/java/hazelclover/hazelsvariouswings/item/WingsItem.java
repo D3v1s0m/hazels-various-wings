@@ -189,8 +189,8 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
                 pastGlideSpeed = entity.speed;
 
                 sYawBaseAngle = 0.9f;
-                sYawFlapSpeed = 0.2f * (0.7f-animGlideSpeed);
-                sYawFlapAngle = 0.2f;
+                sYawFlapSpeed = 0.2f;
+                sYawFlapAngle = 0.2f * (0.7f-animGlideSpeed);
                 sPitchBaseAngle = (animGlideSpeed*0.9f);
                 sPitchFlapSpeed = 0.0f;
                 sPitchFlapAngle = 0.0f;

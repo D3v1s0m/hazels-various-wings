@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "hazels-various-wings:pristine_wings"
+    },
+    {
+      "item": "hazels-various-wings:moth_wings"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hazels-various-wings:aslerix_wings"
+  }
+}
