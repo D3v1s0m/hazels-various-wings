@@ -19,7 +19,7 @@
 			"hazelclover.hazelsvariouswings.HazelsVariousWings"
 		],
 		"client": [
-			"hazelclover.hazelsvariouswings.HazelsVariousWingsClient"
+			"hazelclover.hazelsvariouswings.client.WingsClientHandler"
 		],
 		"fabric-datagen": [
 			"hazelclover.hazelsvariouswings.HazelsVariousWingsDataGenerator"

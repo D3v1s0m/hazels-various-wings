@@ -18,7 +18,6 @@ public class HazelsVariousWings implements ModInitializer {
 	public void onInitialize() {
 		ModItemGroup.registerItemGroups();
 		ModItems.registerModItems();
-		WingsHandler.register();
 		TraderTrades.register();
 		LootInjector.register();
 	}
