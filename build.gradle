@@ -24,6 +24,10 @@ repositories {
 		name = "Ladysnake Libs"
 		url = 'https://maven.ladysnake.org/releases'
 	}
+	maven {
+		name = "FzzyMaven"
+		url = "https://maven.fzzyhmstrs.me/"
+	}
 }
 
 fabricApi {
@@ -40,14 +44,19 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 
-	modImplementation "dev.emi:trinkets:3.10.0"
+	modImplementation "dev.emi:trinkets:${project.trinkets_version}"
+	modImplementation "me.fzzyhmstrs:fzzy_config:${project.fzzy_config_version}"
 }
 
 processResources {
 	inputs.property "version", project.version
+	inputs.property "trinkets_version", project.trinkets_version
+	inputs.property "fzzy_config_version", project.fzzy_config_version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": project.version,
+				"trinkets_version": project.trinkets_version,
+				"fzzy_config_version": project.fzzy_config_version
 	}
 }
 

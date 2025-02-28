@@ -41,8 +41,8 @@ public class WingsHandler {
                 player.stopFallFlying();
                 wings.startGlideOnServer = false;
             }
-            wings.currentFlyDuration = wings.flyDuration;
-            wings.currentHoverDuration = wings.hoverDuration;
+            wings.currentFlyDuration = wings.config.flyDuration;
+            wings.currentHoverDuration = wings.config.hoverDuration;
         }
 
         if (player.isFallFlying()) {
@@ -55,7 +55,7 @@ public class WingsHandler {
             onSpaceHeld((ClientPlayerEntity) player, wings, isInvOpen);
             if (!isInvOpen) wings.flightHeldTicks++;
         } else if (!isInvOpen) {
-            if (wings.doesGlide && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 4 && !isInWater) {
+            if (wings.config.doesGlide && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 4 && !isInWater) {
                 wings.startGlideOnServer = true;
                 wings.pastGlideSpeed = (float) player.getVelocity().length();
             }
@@ -65,14 +65,14 @@ public class WingsHandler {
 
     private static void onSpaceHeld(ClientPlayerEntity player, WingsItem wings, boolean isInvOpen) {
         if (!isInvOpen && wings.currentFlyDuration > 0) {
-            player.fallDistance /= wings.flyPower + 1;
-            player.setVelocity(player.getVelocity().x, Math.min(player.getVelocity().y + wings.flyPower * 0.4f, wings.flyPower), player.getVelocity().z);
+            player.fallDistance /= wings.config.flyPower + 1;
+            player.setVelocity(player.getVelocity().x, Math.min(player.getVelocity().y + wings.config.flyPower * 0.4f, wings.config.flyPower), player.getVelocity().z);
             wings.currentFlyDuration -= 0.05f;
             wings.damageItemTimer -= 0.045f;
             wings.flightState = WingsFlightState.UP;
         } else if (wings.currentHoverDuration > 0 && player.getVelocity().y < 0) {
-            player.fallDistance *= wings.hoverPower * 4.2f;
-            player.setVelocity(player.getVelocity().x, Math.max(player.getVelocity().y + (0.3f - wings.hoverPower), -wings.hoverPower), player.getVelocity().z);
+            player.fallDistance *= wings.config.hoverPower * 4.2f;
+            player.setVelocity(player.getVelocity().x, Math.max(player.getVelocity().y + (0.3f - wings.config.hoverPower), -wings.config.hoverPower), player.getVelocity().z);
             wings.currentHoverDuration -= 0.05f;
             wings.damageItemTimer -= 0.025f;
             wings.flightState = WingsFlightState.HOVER;

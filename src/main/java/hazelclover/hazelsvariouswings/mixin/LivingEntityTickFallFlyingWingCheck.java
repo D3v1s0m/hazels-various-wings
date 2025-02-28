@@ -1,8 +1,8 @@
 package hazelclover.hazelsvariouswings.mixin;
 
+import hazelclover.hazelsvariouswings.config.GeneralConfig;
 import hazelclover.hazelsvariouswings.fuctionality.WingsHandler;
 import hazelclover.hazelsvariouswings.item.WingsItem;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
@@ -10,7 +10,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.world.event.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,19 +29,36 @@ public class LivingEntityTickFallFlyingWingCheck {
 
         boolean bl = invoker.invokeGetFlag(7);
         if (bl && !entity.isOnGround() && !entity.hasVehicle() && !entity.hasStatusEffect(StatusEffects.LEVITATION)) {
-            bl = false;
-            if (entity instanceof PlayerEntity player) {
-                WingsItem wings = WingsHandler.getEquippedWings(player);
-                if (wings != null && wings.doesGlide) {
-                    bl = true;
+            ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.CHEST);
+            if (itemStack.isOf(Items.ELYTRA) && ElytraItem.isUsable(itemStack)) {
+                if (!GeneralConfig.INSTANCE.disableVanillaElytra) {
                     int i = entity.getFallFlyingTicks() + 1;
                     if (!entity.getWorld().isClient && i % 10 == 0) {
+                        int j = i / 10;
+                        if (j % 2 == 0) {
+                            itemStack.damage(1, entity, EquipmentSlot.CHEST);
+                        }
+
+                        entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
+                    }
+                } else {
+                    bl = false;
+                }
+            }  else {
+                bl = false;
+                if (entity instanceof PlayerEntity player) {
+                    WingsItem wings = WingsHandler.getEquippedWings(player);
+                    if (wings != null && wings.config.doesGlide) {
+                        bl = true;
+                        int i = entity.getFallFlyingTicks() + 1;
+                        if (!entity.getWorld().isClient && i % 10 == 0) {
 //                        int j = i / 10;
 //                        if (j % 2 == 0) {
 //                            itemStack.damage(1, entity, EquipmentSlot.CHEST);
 //                        }
 
-                        entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
+                            entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
+                        }
                     }
                 }
             }

@@ -32,9 +32,10 @@
 		"fabricloader": ">=0.16.5",
 		"minecraft": "~1.21.1",
 		"java": ">=21",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"trinkets": ">=${trinkets_version}",
+		"fzzy_config": ">=${fzzy_config_version}"
 	},
 	"suggests": {
-		"another-mod": "*"
 	}
 }
