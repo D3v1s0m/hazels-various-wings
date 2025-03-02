@@ -5,6 +5,7 @@
   "mixins": [
     "EndCityShipElytraReplacer",
     "EntityGetSetFlagInvoker",
+    "FireworkRocketItemUseWithWings",
     "PlayerEntityCheckFallFlyingHasWings"
   ],
   "injectors": {

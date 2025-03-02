@@ -1,11 +1,8 @@
 package hazelclover.hazelsvariouswings.mixin;
 
-import hazelclover.hazelsvariouswings.HazelsVariousWings;
 import hazelclover.hazelsvariouswings.fuctionality.WingsHandler;
 import hazelclover.hazelsvariouswings.item.WingsItem;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.item.ElytraItem;
-import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +21,7 @@ public class PlayerStartFallFlyingWithWings {
 
         if (player.input.jumping && !player.hasVehicle() && !player.isClimbing()) {
             WingsItem wings = WingsHandler.getEquippedWings(player);
-            if (wings != null && wings.doesGlide && player.checkFallFlying()) {
+            if (wings != null && wings.config.doesGlide.get() && player.checkFallFlying()) {
                 player.networkHandler.sendPacket(new ClientCommandC2SPacket(player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
             }
         }

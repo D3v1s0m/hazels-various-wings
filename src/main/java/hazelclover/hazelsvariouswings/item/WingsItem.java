@@ -4,6 +4,7 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
+import hazelclover.hazelsvariouswings.config.WingsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -30,18 +31,11 @@ import java.util.List;
 import static java.lang.Math.*;
 
 public class WingsItem extends TrinketItem implements TrinketRenderer {
-    private final float scale;
+    public final WingsConfig.WingConfig config;
     public float setFallDistOnServer = -1;
 
-    public final float flyDuration;
-    public final float flyPower;
-    public final float hoverDuration;
-    public final float hoverPower;
     public float currentFlyDuration;
     public float currentHoverDuration;
-
-    public final boolean inWaterFunctional;
-    public final boolean doesGlide;
 
     public int flightHeldTicks = 0;
     public float damageItemTimer = 1;
@@ -52,18 +46,10 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
 
     public WingsFlightState flightState = WingsFlightState.GROUNDED;
 
-    public WingsItem(Settings settings, float scale, float flyDuration, float flyPower, float hoverDuration, float hoverPower, boolean inWaterFunctional, boolean doesGlide) {
-        super(settings);
-        TrinketRendererRegistry.registerRenderer(this, (TrinketRenderer) this);
-        this.scale = scale;
-        this.flyDuration = flyDuration;
-        this.flyPower = flyPower;
-        this.hoverDuration = hoverDuration;
-        this.hoverPower = hoverPower;
-        this.currentFlyDuration = flyDuration;
-        this.currentHoverDuration = hoverDuration;
-        this.inWaterFunctional = inWaterFunctional;
-        this.doesGlide = doesGlide;
+    public WingsItem(Settings settings, WingsConfig.WingConfig config) {
+        super(settings.maxCount(1).maxDamage(config.durability));
+        TrinketRendererRegistry.registerRenderer(this, this);
+        this.config = config;
     }
 
 
@@ -112,7 +98,7 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        if (doesGlide) {tooltip.add(Text.translatable("tooltip.hazels-various-wings.wingsitem.doesGlide").formatted(Formatting.LIGHT_PURPLE));}
+        if (config.doesGlide.get()) {tooltip.add(Text.translatable("tooltip.hazels-various-wings.wingsitem.doesGlide").formatted(Formatting.LIGHT_PURPLE));}
         tooltip.add(Text.translatable("tooltip.hazels-various-wings.wingsitem.generic").formatted(Formatting.GRAY));
         super.appendTooltip(stack, context, tooltip, type);
     }
@@ -174,11 +160,11 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
             }
             case HOVER -> {
                 sYawBaseAngle = 0.7f;
-                sYawFlapSpeed = 0.0f;
-                sYawFlapAngle = 0.0f;
-                sPitchBaseAngle = 0.0f;
-                sPitchFlapSpeed = 0.0f;
-                sPitchFlapAngle = 0.0f;
+                sYawFlapSpeed = 0.6f;
+                sYawFlapAngle = 0.4f;
+                sPitchBaseAngle = 0.3f;
+                sPitchFlapSpeed = 0.6f;
+                sPitchFlapAngle = -0.5f;
                 sRotBaseAngle = 0.9f;
                 sRotFlapSpeed = 0.0f;
                 sRotFlapAngle = 0.0f;
@@ -207,6 +193,7 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
         float yaw = (float) (sYawFlapAngle * sin(sYawFlapSpeed * animationProgress) + sYawBaseAngle);
         float pitch = (float) (sPitchFlapAngle * sin(sPitchFlapSpeed * animationProgress) + sPitchBaseAngle);
         float rot = (float) (sRotFlapAngle * sin(sRotFlapSpeed * animationProgress) + sRotBaseAngle);
+        float scale = config.scale;
         matrices.scale(scale, scale, scale);
         matrices.translate(-0.5+(0.14f/scale), -0.18f/scale, 0.3f/scale); // X right-left Y up-down Z forwards-backwards
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) (PI + rot))); // flip right way up

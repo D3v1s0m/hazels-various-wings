@@ -14,15 +14,13 @@ public class TraderTrades {
     public static void register() {
         HazelsVariousWings.LOGGER.info("Registering Wandering Trader trades for " + HazelsVariousWings.MOD_ID);
         // Adding wing trades to Wandering Trader
-        TradeOfferHelper.registerWanderingTraderOffers(1, factories -> {
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.EMERALD, 4),
-                    new ItemStack(ModItems.FLEDGLING_WINGS, 1),
-                    1,                                   // Max uses of the trade
-                    5,                                   // Experience given
-                    0.1F                                // Price multiplier
-            ));
-        });
+        TradeOfferHelper.registerWanderingTraderOffers(1, factories -> factories.add((entity, random) -> new TradeOffer(
+                new TradedItem(Items.EMERALD, 4),
+                new ItemStack(ModItems.FLEDGLING_WINGS, 1),
+                1,                                   // Max uses of the trade
+                5,                                   // Experience given
+                0.1F                                // Price multiplier
+        )));
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
             factories.add((entity, random) -> new TradeOffer(
                     new TradedItem(Items.EMERALD, 12),
