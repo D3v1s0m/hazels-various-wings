@@ -55,7 +55,7 @@ public class WingsHandler {
             onSpaceHeld((ClientPlayerEntity) player, wings, isInvOpen);
             if (!isInvOpen) wings.flightHeldTicks++;
         } else if (!isInvOpen) {
-            if (wings.config.doesGlide && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 4 && !isInWater) {
+            if (wings.config.doesGlide.get() && wings.flightHeldTicks > 0 && wings.flightHeldTicks < 4 && !isInWater) {
                 wings.startGlideOnServer = true;
                 wings.pastGlideSpeed = (float) player.getVelocity().length();
             }
@@ -70,9 +70,9 @@ public class WingsHandler {
             wings.currentFlyDuration -= 0.05f;
             wings.damageItemTimer -= 0.045f;
             wings.flightState = WingsFlightState.UP;
-        } else if (wings.currentHoverDuration > 0 && player.getVelocity().y < 0) {
+        } else if (wings.currentHoverDuration > 0) {
             player.fallDistance *= wings.config.hoverPower * 4.2f;
-            player.setVelocity(player.getVelocity().x, Math.max(player.getVelocity().y + (0.3f - wings.config.hoverPower), -wings.config.hoverPower), player.getVelocity().z);
+            player.setVelocity(player.getVelocity().x, 0, player.getVelocity().z);
             wings.currentHoverDuration -= 0.05f;
             wings.damageItemTimer -= 0.025f;
             wings.flightState = WingsFlightState.HOVER;

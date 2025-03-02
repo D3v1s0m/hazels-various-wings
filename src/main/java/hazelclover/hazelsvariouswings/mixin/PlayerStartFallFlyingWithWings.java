@@ -21,7 +21,7 @@ public class PlayerStartFallFlyingWithWings {
 
         if (player.input.jumping && !player.hasVehicle() && !player.isClimbing()) {
             WingsItem wings = WingsHandler.getEquippedWings(player);
-            if (wings != null && wings.config.doesGlide && player.checkFallFlying()) {
+            if (wings != null && wings.config.doesGlide.get() && player.checkFallFlying()) {
                 player.networkHandler.sendPacket(new ClientCommandC2SPacket(player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
             }
         }

@@ -98,7 +98,7 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        if (config.doesGlide) {tooltip.add(Text.translatable("tooltip.hazels-various-wings.wingsitem.doesGlide").formatted(Formatting.LIGHT_PURPLE));}
+        if (config.doesGlide.get()) {tooltip.add(Text.translatable("tooltip.hazels-various-wings.wingsitem.doesGlide").formatted(Formatting.LIGHT_PURPLE));}
         tooltip.add(Text.translatable("tooltip.hazels-various-wings.wingsitem.generic").formatted(Formatting.GRAY));
         super.appendTooltip(stack, context, tooltip, type);
     }
@@ -160,11 +160,11 @@ public class WingsItem extends TrinketItem implements TrinketRenderer {
             }
             case HOVER -> {
                 sYawBaseAngle = 0.7f;
-                sYawFlapSpeed = 0.0f;
-                sYawFlapAngle = 0.0f;
-                sPitchBaseAngle = 0.0f;
-                sPitchFlapSpeed = 0.0f;
-                sPitchFlapAngle = 0.0f;
+                sYawFlapSpeed = 0.6f;
+                sYawFlapAngle = 0.4f;
+                sPitchBaseAngle = 0.3f;
+                sPitchFlapSpeed = 0.6f;
+                sPitchFlapAngle = -0.5f;
                 sRotBaseAngle = 0.9f;
                 sRotFlapSpeed = 0.0f;
                 sRotFlapAngle = 0.0f;

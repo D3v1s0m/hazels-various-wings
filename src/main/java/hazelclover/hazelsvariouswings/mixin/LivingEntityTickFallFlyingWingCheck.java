@@ -29,9 +29,21 @@ public class LivingEntityTickFallFlyingWingCheck {
 
         boolean bl = invoker.invokeGetFlag(7);
         if (bl && !entity.isOnGround() && !entity.hasVehicle() && !entity.hasStatusEffect(StatusEffects.LEVITATION)) {
-            ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.CHEST);
-            if (itemStack.isOf(Items.ELYTRA) && ElytraItem.isUsable(itemStack)) {
-                if (!GeneralConfig.INSTANCE.disableVanillaElytra) {
+            bl = false;
+            if (entity instanceof PlayerEntity player) {
+                WingsItem wings = WingsHandler.getEquippedWings(player);
+                if (wings != null && wings.config.doesGlide.get()) {
+                    bl = true;
+                    int i = entity.getFallFlyingTicks() + 1;
+                    if (!entity.getWorld().isClient && i % 10 == 0) {
+                        entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
+                    }
+                }
+            }
+            if (!bl) {
+                ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.CHEST);
+                if (itemStack.isOf(Items.ELYTRA) && ElytraItem.isUsable(itemStack) && !GeneralConfig.INSTANCE.disableVanillaElytra.get()) {
+                    bl = true;
                     int i = entity.getFallFlyingTicks() + 1;
                     if (!entity.getWorld().isClient && i % 10 == 0) {
                         int j = i / 10;
@@ -40,25 +52,6 @@ public class LivingEntityTickFallFlyingWingCheck {
                         }
 
                         entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
-                    }
-                } else {
-                    bl = false;
-                }
-            }  else {
-                bl = false;
-                if (entity instanceof PlayerEntity player) {
-                    WingsItem wings = WingsHandler.getEquippedWings(player);
-                    if (wings != null && wings.config.doesGlide) {
-                        bl = true;
-                        int i = entity.getFallFlyingTicks() + 1;
-                        if (!entity.getWorld().isClient && i % 10 == 0) {
-//                        int j = i / 10;
-//                        if (j % 2 == 0) {
-//                            itemStack.damage(1, entity, EquipmentSlot.CHEST);
-//                        }
-
-                            entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
-                        }
                     }
                 }
             }

@@ -18,8 +18,7 @@ public class PlayerEntityCheckFallFlyingHasWings {
 	@Inject(method = "checkFallFlying", at = @At("HEAD"), cancellable = true)
 	private void handleMetadata(CallbackInfoReturnable<Boolean> cir) {
 		WingsItem wings = WingsHandler.getEquippedWings((PlayerEntity) (Object) this);
-		if (wings == null || !wings.config.doesGlide) {return;}
+		if (wings == null || !wings.config.doesGlide.get()) {return;}
 		cir.setReturnValue(true);
-		cir.cancel();
 	}
 }
