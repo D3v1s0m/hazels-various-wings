@@ -2,6 +2,7 @@ package hazelclover.hazelsvariouswings.fuctionality;
 
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
+import hazelclover.hazelsvariouswings.HazelsVariousWings;
 import hazelclover.hazelsvariouswings.client.WingsClientHandler;
 import hazelclover.hazelsvariouswings.item.WingsFlightState;
 import hazelclover.hazelsvariouswings.item.WingsItem;
@@ -70,9 +71,9 @@ public class WingsHandler {
             wings.currentFlyDuration -= 0.05f;
             wings.damageItemTimer -= 0.045f;
             wings.flightState = WingsFlightState.UP;
-        } else if (wings.currentHoverDuration > 0) {
+        } else if (!isInvOpen && wings.currentHoverDuration > 0 && player.getVelocity().y < -wings.config.hoverPower) {
             player.fallDistance *= wings.config.hoverPower * 4.2f;
-            player.setVelocity(player.getVelocity().x, 0, player.getVelocity().z);
+            player.setVelocity(player.getVelocity().x, Math.min(player.getVelocity().y + (0.3f - wings.config.hoverPower), -wings.config.hoverPower), player.getVelocity().z);
             wings.currentHoverDuration -= 0.05f;
             wings.damageItemTimer -= 0.025f;
             wings.flightState = WingsFlightState.HOVER;
